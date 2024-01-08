@@ -265,21 +265,16 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from keras.layers import Conv1D, MaxPooling1D, BatchNormalization, Flatten
 from keras.optimizers import Adam
-from tensorflow.keras.regularizers import l2
 
 
-
-#model.add(BatchNormalization())
 
 filters = 64
 n_timesteps, n_features, n_outputs = x_train.shape[1], x_train.shape[2], y_train.shape[1]
 
-# Definir el modelo con regularización
+
 model = Sequential()
-model.add(Conv1D(filters=filters, kernel_size=5, activation='relu', input_shape=(n_timesteps, n_features), kernel_regularizer=l2(0.001)))
-model.add(BatchNormalization())
-model.add(MaxPooling1D(pool_size=2))
-model.add(Conv1D(filters=filters, kernel_size=5, activation='relu', kernel_regularizer=l2(0.01)))
+model.add(Conv1D(filters=filters, kernel_size=5, activation='relu', input_shape=(n_timesteps, n_features)))
+#model.add(Conv1D(filters=filters/2, kernel_size=5, activation='relu'))
 model.add(BatchNormalization())
 model.add(MaxPooling1D(pool_size=2))
 model.add(Flatten())
